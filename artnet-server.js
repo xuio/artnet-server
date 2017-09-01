@@ -37,6 +37,8 @@ module.exports.listen = (port, cb) => {
 
 		// Protocol Data
 		const unpacked = jspack.Unpack(msgFormatHeader, msg, 0);
+		if(unpacked){
+
 		const signature = unpacked[0];		// Signature should be 'Art-Net'
 		const zero = unpacked[1];				// It's just a zero per the format definition ;-)
 		const opcode = unpacked[2];			// Opcode is defined to be 0x5000
@@ -66,6 +68,7 @@ module.exports.listen = (port, cb) => {
 
 		// And call the callback passing the deseralized data
 		cb(retData, peer);
+		}
 	});
 	sock.bind(port);
 };
